@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>English Janala</title>
+    <!-- daisy ui cdn -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+      .active {
+        background: rgb(19, 19, 248);
+        color: white;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- nav bar section  -->
+    <header>
+      <nav
+        id="navbar"
+        class="hidden scroll-m-3 top-0 bg-white z-50 items-center w-11/12 mx-auto flex justify-between border-b-2 py-4 border-gray-200"
+      >
+        <div class="flex justify-between items-center">
+          <span>English</span>
+          <img src="./assets/logo.png" alt="" />
+          <span>জানালা</span>
+        </div>
+        <!-- text-blue-600 border-blue-700 rounded-md  group btn btn-sm -->
+
+        <div class="gap-4 flex justify-between">
+          <button
+            id="faqBtn"
+            class="btn border-blue-600 text-blue-60 flex items-center gap-2 text-xs rounded-sm font-semibold border-2 text-blue-600 hover:text-white hover:bg-blue-400 hover:border-none transition-colors duration-400"
+          >
+            <span><img src="./assets/fa-circle-question.png" alt="" /></span>
+            FAQ
+          </button>
+          <button
+            id="learnBtn"
+            class="btn border-blue-600 text-blue-60 flex items-center gap-2 text-xs rounded-sm font-semibold border-2 text-blue-600 hover:text-white hover:bg-blue-400 hover:border-none transition-colors duration-400"
+          >
+            <span><img src="./assets/fa-book-open.png" alt="" /></span>Learn
+          </button>
+       
+
+          <button
+            id="logoutBtn"
+            class="btn border-blue-600 text-blue-60 flex items-center gap-2 text-xs rounded-sm font-semibold border-2 text-blue-600 hover:text-white hover:bg-blue-400 hover:border-none transition-colors duration-400"
+          >
+            <span
+              ><img src="./assets/fa-arrow-right-from-bracket.png" alt=""
+            /></span>
+            Logout
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- banner section  -->
+    <section
+      class="flex justify-between mx-auto w-11/12 items-center my-15"
+      id="banner"
+    >
+      <div>
+        <h1 class="font-bold my-8 text-5xl">
+          <span class="text-blue-500">English</span> is Easy!!
+        </h1>
+        <p class="font-medium my-6 text-gray-500">
+          আজ থেকেই আপনার ভাষা শেখার যাত্রা শুরু করুন। আপনি যদি নতুন হন অথবা
+          <br />
+          আপনার দক্ষতা বাড়াতে চান, আমাদের Interactive Lessons আপনাকে <br />
+          নিয়ে যাবে অন্য একটি Level এ
+        </p>
+        <input
+          type="text"
+          placeholder="Enter your name"
+          class="rounded-[3px] my-2 py-1 px-13 py-2 border-gray-500"
+          id="username"
+        /><br />
+        <input
+          type="password"
+          placeholder="password will be 123456"
+          class="rounded-[3px] my-1 py-1 px-13 py-2 border-gray-500"
+          id="password"
+        /><br />
+        <button
+          id="loginButton"
+          class="bg-blue-600 my-5 rounded-sm py-2 px-4 text-white font-semibold"
+        >
+          Get Started
+        </button>
+      </div>
+      <div>
+        <img class="w-[420px]" src="./assets/hero-student.png" alt="" />
+      </div>
+    </section>
+
+
+    <!-- loading spinner start -->
+    
+    <section id="loader" class="text-center py-10 hidden">
+      <span class="loading loading-dots loading-xl"></span>
+    </section>
+    <!-- loading spinner end -->
+    
+
+    <!-- vocabulary section  start-->
+
+    <div id="vocabulary-section" class="hidden">
+      <div>
+        <h1 class="text-center font-bold text-3xl">
+          <span class="text-blue-500"> Let's</span> Learn Vocabularies
+        </h1>
+      </div>
+
+      <section
+        id="data-container"
+        class="flex items-center gap-3 justify-center"
+      ></section>
+
+      <!-- video card data  -->
+      <section
+        id="video-container"
+        class="w-11/12 mx-auto grid grid-cols-3 gap-6 bg-slate-100"
+      ></section>
+
+      <section id="default-message">
+        <div
+          class="flex justify-center items-center flex-col bg-slate-100 py-16 w-11/12 mx-auto"
+        >
+          <h5 class="text-[14px] text-gray-500 mb-2">
+            আপনি এখনো কোন Lesson Select করেন !
+          </h5>
+          <h1 class="font-semibold text-[28px] text-gray-700">
+            একটি Lesson Select করুন।
+          </h1>
+        </div>
+      </section>
+
+      <!-- modal start  -->
+
+      <!-- Open the modal using ID.showModal() method -->
+
+      <dialog id="vocabulary_details" class="modal">
+        <div class="modal-box text-left space-y-4">
+          <h2 id="modal-word" class="text-2xl font-bold text-blue-600">Word</h2>
+          <p id="modal-pronunciation" class="text-gray-700">Pronunciation:</p>
+          <p id="modal-example" class="text-gray-700">Example:</p>
+
+          <div>
+            <p class="font-semibold mb-1">Synonyms:</p>
+            <div id="modal-synonyms" class="flex flex-wrap gap-2"></div>
+          </div>
+
+          <div class="modal-action">
+            <form method="dialog">
+              <button class="btn bg-blue-600 text-white hover:bg-blue-700">
+                Complete Learning
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      
+
+      <!-- vocabulary section end  -->
+    </div>
+
+    <!-- faq section  -->
+    <div class="hidden my-20" id="faq-section">
+      <h1 class="text-center font-bold text-3xl">
+        <span class="text-blue-500"> Frequently</span> Asked Questions
+      </h1>
+
+      <section class="mx-auto w-11/12 items-center my-6">
+        <div
+          class="bg-slate-50 my-4 group border border-gray-200 rounded-2xl shadow-sm p-4 collapse collapse-plus bg-base-100 border border-base-300"
+        >
+          <input type="radio" name="my-accordion-3" checked="checked" />
+          <div class="collapse-title font-semibold">
+            What is the difference between var, let, and const?
+          </div>
+          <div class="collapse-content text-sm text-gray-600">
+            In JavaScript, var, let, and const are keywords used to declare
+            variables, but they differ in scope, mutability, and how they are
+            handled during execution. var is function-scoped, meaning it's
+            accessible throughout the entire function it's declared in, and it
+            can be redeclared and reassigned. let and const, introduced in ES6,
+            are block-scoped, meaning their scope is limited to the block of
+            code they are defined within, and const cannot be reassigned after
+            declaration. let can be reassigned, but not redeclared.
+          </div>
+        </div>
+        <div
+          class="bg-slate-50 my-4 group border border-gray-200 rounded-2xl shadow-sm p-4 collapse collapse-plus bg-base-100 border border-base-300"
+        >
+          <input type="radio" name="my-accordion-3" />
+          <div class="collapse-title font-semibold">
+            What is the difference between map(), forEach(), and filter()?
+          </div>
+          <div class="collapse-content text-sm text-gray-400">
+            So,|forEach() will not return anything. forEach() returns undefined.
+            filter() method will return an array of matching elements else will
+            return an empty array if no matching happens. If you have a
+            requirement to modify the current array and are expecting a modified
+            one, then you should go with map() .
+          </div>
+        </div>
+        <div
+          class="bg-slate-50 my-4 group border border-gray-200 rounded-2xl shadow-sm p-4 collapse collapse-plus bg-base-100 border border-base-300"
+        >
+          <input type="radio" name="my-accordion-3" />
+          <div class="collapse-title font-semibold">
+            How JavaScript Promises work ?
+          </div>
+          <div class="collapse-content text-sm text-gray-700">
+            Promise is an object that will produce a single value some time in
+            the future. If the promise is successful, it will produce a resolved
+            value, but if something goes wrong then it will produce a reason why
+            the promise failed. The possible outcomes here are similar to that
+            of promises in real life.
+          </div>
+        </div>
+        <div
+          class="bg-slate-50 my-4 group border border-gray-200 rounded-2xl shadow-sm p-4 collapse collapse-plus bg-base-100 border border-base-300"
+        >
+          <input type="radio" name="my-accordion-3" />
+          <div class="collapse-title font-semibold">
+            How closures work in JavaScript ?
+          </div>
+          <div class="collapse-content text-sm text-gray-700">
+            A closure can be used to associate a function with a set of
+            "private" variables, which persist over several invocations of the
+            function. The scope of the variable encompasses only the closed-over
+            function, so it cannot be accessed from other program code.
+          </div>
+        </div>
+
+        <div
+          class="bg-slate-50 my-4 group border border-gray-200 rounded-2xl shadow-sm p-4 collapse collapse-plus bg-base-100 border border-base-300"
+        >
+          <input type="radio" name="my-accordion-3" />
+          <div class="collapse-title font-semibold">
+            Explain arrow functions and how they are different from regular
+            functions
+          </div>
+          <div class="collapse-content text-sm text-gray-600">
+            The arrow function expression is an alternative to the normal
+            function. With some differences and limitations in usage: Arrow
+            functions don't have their bindings to arguments, this, or super,
+            and we cannot use them as methods.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- footer section  -->
+
+    <footer class="flex justify-around mt-20 py-20 bg-slate-100" id="footer">
+      <div>
+        <div class="flex items-center">
+          <span class="font-semibold text-xl">English</span>
+          <img src="./assets/logo.png" alt="" />
+          <span class="text-xl">জানালা</span>
+        </div>
+
+        <div class="my-2 text-gray-600 text-sm">
+          <h5>ইংরেজি শিখুন সহজে.</h5>
+        </div>
+        <div>
+          <p>Providing ED-Tech Applications since 2025</p>
+        </div>
+      </div>
+
+      <div class="ml-90 mt-3">
+        <div>
+          <p>FOLLOW US</p>
+        </div>
+        <div class="flex justify-around gap-2 pt-3">
+          <a href="https://github.com/ahassh1" target="_blank">
+            <img
+              class="cursor-pointer"
+              src="./assets/github-thumb.png"
+              alt="GitHub"
+            />
+          </a>
+
+          <a href="https://facebook.com/oneahasanhabib" target="_blank">
+            <img
+              class="cursor-pointer"
+              src="./assets/fb-thumb.png"
+              alt="facebook"
+            />
+          </a>
+          <a href="https://youtube.com/ahassh1" target="_blank">
+            <img
+              class="cursor-pointer"
+              src="./assets/youtube-thumb.png"
+              alt=""
+            />
+          </a>
+          <a href="https://instagram.com/p0lash" target="_blank">
+            <img class="cursor-pointer" src="./assets/instagram-thumb.png"
+            alt="" /
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script/app.js"></script>
+  </body>
+</html>
